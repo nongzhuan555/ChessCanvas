@@ -32,15 +32,18 @@
     // 测试事件发布与订阅是否正常工作
     const eventBus = Layer.eventBus
     // 以下事件订阅位于初始同步任务（第一个宏任务）中，必然先于事件发布
-    // eventBus.on('BoardRendered',(arg)=>{
-    //     console.log('棋盘渲染成功',arg)
-    // })
-    // eventBus.on('BoardImgSucces',(arg)=>{
-    //     console.log(arg.msg)
-    // })
-    eventBus.on('click',(pos)=>{
-        console.log(pos.x,pos.y)
+    eventBus.on('BoardRendered',(arg)=>{
+        console.log('棋盘渲染成功',arg)
     })
+    eventBus.on('BoardImgSucces',(arg)=>{
+        console.log(arg.msg)
+    })
+    // eventBus.on('SelectPiece',(piece)=>{
+    //     console.log(piece)
+    // })
+    // eventBus.on('EatPiece',(piece)=>{
+    //     console.log(piece)
+    // })
 </script>
 <style>
     #chess-canvas-container{

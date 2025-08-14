@@ -7,7 +7,7 @@ export default class PieceLayer extends Layer {
   static isCreated = false; // 单例标识
   static instance = null; // 单例
   // 当前棋子层实例的棋子状态
-  pieceMap = [
+  static pieceMap = [
     [0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0],
@@ -31,8 +31,8 @@ export default class PieceLayer extends Layer {
   draw() {
     for(let i = 0;i<=BOARD_ROWS;i++){
         for(let j = 0;j<=BOARD_COLS;j++){
-            if(!this.pieceMap[i][j]) continue
-            queueMicrotask(()=>this.drawOnePiece(this.pieceMap[i][j]))
+            if(!PieceLayer.pieceMap[i][j]) continue
+            queueMicrotask(()=>this.drawOnePiece(PieceLayer.pieceMap[i][j]))
             // this.drawOnePiece(this.pieceMap[i][j])
         }
     }
@@ -71,7 +71,7 @@ export default class PieceLayer extends Layer {
     if (!(piece instanceof Piece)) {
       throw new Error("只能添加棋子实例");
     } else {
-      this.pieceMap[piece.x][piece.y] = piece;
+      PieceLayer.pieceMap[piece.x][piece.y] = piece;
       // 考虑触发事件
     }
   }

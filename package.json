@@ -1,0 +1,13 @@
+{
+  "name": "chesscanvas",
+  "version": "1.0.0",
+  "description": "An easily-used and small 2D Canvas framework for the ChineseChess scene specially",
+  "main": "./index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["ChineseChess","Canvas","2D",""],
+  "author": "TangLei",
+  "license": "ISC",
+  "type": "module"
+}

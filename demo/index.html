@@ -10,7 +10,7 @@
     <div id="chess-canvas-container"></div>
 </body>
 <script type="module">
-    import { Layer,BoardLayer,PieceLayer,Piece,EventLayer } from '../index.js'
+    import { Layer,BoardLayer,PieceLayer,Piece,EventLayer,animateFn,MoveMode } from '../index.js'
     console.log('ChessCanvas的demo启动...')
     const ChessBoard = new BoardLayer('chess-canvas-container',1)
     // const testSingle = new BoardLayer('chess-canvas-container',1)
@@ -33,17 +33,30 @@
     const eventBus = Layer.eventBus
     // 以下事件订阅位于初始同步任务（第一个宏任务）中，必然先于事件发布
     eventBus.on('BoardRendered',(arg)=>{
-        console.log('棋盘渲染成功',arg)
+        // console.log('棋盘渲染成功',arg)
     })
     eventBus.on('BoardImgSucces',(arg)=>{
-        console.log(arg.msg)
+        // console.log(arg.msg)
     })
-    // eventBus.on('SelectPiece',(piece)=>{
-    //     console.log(piece)
-    // })
-    // eventBus.on('EatPiece',(piece)=>{
-    //     console.log(piece)
-    // })
+    eventBus.on('SelectPiece',(piece)=>{
+        ChessPiece.selectPiece(piece)
+        console.log('当前选中的棋子为:',PieceLayer.selectedPiece)
+    })
+    eventBus.on('WantMovePiece',(moveOption)=>{
+        // 这里应该做移动校验，但示例中省略
+        const option = moveOption.moveTo
+        option.easing = MoveMode.easeInQuad
+        option.duration = 500
+        ChessPiece.animate(animateFn,option)
+    })
+    eventBus.on('AnimationStart',(animation)=>{
+        // 开始移动后，将棋盘数组的原位置零
+        ChessPiece.setPieceMap(null,animation.startX,animation.startY)
+    })
+    eventBus.on('AnimationEnd',(piece)=>{
+        // 移动完成后，将棋盘数组的新位置赋值为棋子
+        ChessPiece.setPieceMap(piece)
+    })
 </script>
 <style>
     #chess-canvas-container{

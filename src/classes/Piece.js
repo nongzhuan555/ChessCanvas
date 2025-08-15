@@ -22,3 +22,5 @@ export default class Piece{
         }
     }
 }
+// TODO:
+// 1. 针对精灵图模式做相关配置

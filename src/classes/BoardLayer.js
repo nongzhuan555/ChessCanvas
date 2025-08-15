@@ -21,6 +21,8 @@ export default class BoardLayer extends Layer {
     }
   }
   // 棋盘层实现绘制-绘制棋盘
+  // 会触发棋盘背景图是否加载成功的事件，最终触发棋盘渲染完成的事件（这里其实可以叫生命周期）
+  // 所谓“生命周期”，其实就是必然会按照既定顺序发生的系列事件
   draw(canvas, ctx, boardColor) {
     const _self = this; // 保留调用对象
     const boardImage = this.backgroundImage; // draw由实例调用，可获取正确this，否则内部函数需用箭头函数继承this

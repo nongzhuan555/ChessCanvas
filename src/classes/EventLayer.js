@@ -59,15 +59,16 @@ export default class EventLayer extends Layer {
     }else{
         // 选中棋盘空位
         if(PieceLayer.selectedPiece){
-            // 如果选中棋子，那么触发移动事件
-            this.eventBus.emit('MovePiece',{
+            // 如果选中棋子，那么触发“想要”移动事件，想要移动事件应该被开发者拦截，检验是否可以移动，比如是否符合想象棋移动规则等等，而动画应该是纯粹的操作，不应该涉及移动校验
+            this.eventBus.emit('WantMovePiece',{
                 movePiece:PieceLayer.selectedPiece,
                 moveTo:{x:row,y:col}
             })
         }else{
-            // 无效点击
+            // 无效点击（没选中棋子的情况下点击棋盘，没有意义）
         }
     }
-    this.eventBus.emit('click',{x:row,y:col})
   }
 }
+// TODO:
+// 1. 点击事件的坐标转换精确度、敏感度

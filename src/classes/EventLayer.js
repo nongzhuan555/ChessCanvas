@@ -26,7 +26,6 @@ export default class EventLayer extends Layer {
     const rect = this.getBoundingClientRect()
     const canvasX = e.clientX - rect.left
     const canvasY = e.clientY - rect.top
-    // console.log(canvasX,canvasY)
     // 转换为行列整数坐标，精确度和敏感度待优化
     const row = Math.floor((canvasX - rect.left + GRID_SIZE / 2) / GRID_SIZE);
     const col = Math.floor((canvasY - rect.top + GRID_SIZE / 2) / GRID_SIZE)+1;

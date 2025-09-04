@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>ChessCanvas的demo</title>
 </head>
 <body>
     <h1>ChessCanvas的demo</h1>
@@ -12,47 +12,99 @@
 <script type="module">
     import { Layer,BoardLayer,PieceLayer,Piece,EventLayer,animateFn,MoveMode } from '../index.js'
     console.log('ChessCanvas的demo启动...')
+    // 创建棋盘层
     const ChessBoard = new BoardLayer('chess-canvas-container',1)
-    // const testSingle = new BoardLayer('chess-canvas-container',1)
-    // console.log(ChessBoard===testSingle?'单例测试通过':'单例测试失败') // 单例测试
-    // 以下为棋盘渲染示例
-    // 设置背景图
+    // 设置棋盘背景图
     ChessBoard.setBackgroundImage('https://pic.52112.com/180309/180309_83/8fZmnuxTfu_small.jpg')
     // 依然需要设置背景色作为背景图加载失败的解决方案
     ChessBoard.draw(ChessBoard.getCanvasInstance(),ChessBoard.getCtx(),ChessBoard.backgroundColor)
-    // 以下为棋子渲染示例
+    // 创建棋子
     const ChessPiece = new PieceLayer('chess-canvas-container',2,'sprite','/demo/static/sprite.webp')
-    const redCar = new Piece(4,1,'chariot','red',{x:490,y:510,w:510,h:510})
-    // const blackCar = new Piece(4,1,'chariot','black')
-    ChessPiece.addPiece(redCar)
-    // ChessPiece.addPiece(blackCar)
+    const redCar1 = new Piece(0,0,'chariot','red',{ x: 1530, y: 1006, w: 510, h: 503 })
+    const redCar2 = new Piece(8,0,'chariot','red',{ x: 1530, y: 1006, w: 510, h: 503 })
+    const blackCar1 = new Piece(0,9,'chariot','black',{ x: 1020, y: 1006, w: 510, h: 503 })
+    const blackCar2 = new Piece(8,9,'chariot','black',{ x: 1020, y: 1006, w: 510, h: 503 })
+    const redHorse1 = new Piece(1,0,'horse','red',{ x: 510, y: 1509, w: 510, h: 503 })
+    const redHorse2 = new Piece(7,0,'horse','red',{ x: 510, y: 1509, w: 510, h: 503 })
+    const blackHorse1 = new Piece(1,9,'horse','black',{ x: 0, y: 1509, w: 510, h: 503 })
+    const blackHorse2 = new Piece(7,9,'horse','black',{ x: 0, y: 1509, w: 510, h: 503 })
+    const redElephant1 = new Piece(2,0,'elephant','red', {x: 510, y: 1006, w: 510, h: 503 })
+    const redElephant2 = new Piece(6,0,'elephant','red', {x: 510, y: 1006, w: 510, h: 503 })  
+    const blackElephant1 = new Piece(2,9,'elephant','black',{ x: 0, y: 1006, w: 510, h: 503 })  
+    const blackElephant2 = new Piece(6,9,'elephant','black',{ x: 0, y: 1006, w: 510, h: 503 })  
+    const redAdvisor1 = new Piece(3,0,'advisor','red',{ x: 0, y: 0, w: 510, h: 503 })  
+    const redAdvisor2 = new Piece(5,0,'advisor','red',{ x: 0, y: 0, w: 510, h: 503 })  
+    const blackAdvisor1 = new Piece(3,9,'advisor','black',{ x: 1530, y: 0, w: 510, h: 503 },)  
+    const blackAdvisor2 = new Piece(5,9,'advisor','black',{ x: 1530, y: 0, w: 510, h: 503 },)  
+    const redKing = new Piece(4,0,'king','red',{ x: 510, y: 503, w: 510, h: 503 })  
+    const blackKing = new Piece(4,9,'king','black',{ x: 0, y: 503, w: 510, h: 503 })  
+    const redCannon1 = new Piece(1,2,'cannon','red',{ x: 1530, y: 503, w: 510, h: 503 })  
+    const redCannon2 = new Piece(7,2,'cannon','red',{ x: 1530, y: 503, w: 510, h: 503 })  
+    const blackCannon1 = new Piece(1,7,'cannon','black',{ x: 1020, y: 503, w: 510, h: 503 })  
+    const blackCannon2 = new Piece(7,7,'cannon','black',{ x: 1020, y: 503, w: 510, h: 503 })  
+    const redPawn1 = new Piece(0,3,'pawn','red',{ x: 510, y: 0, w: 510, h: 503 })  
+    const redPawn2 = new Piece(2,3,'pawn','red',{ x: 510, y: 0, w: 510, h: 503 })  
+    const redPawn3 = new Piece(4,3,'pawn','red',{ x: 510, y: 0, w: 510, h: 503 })  
+    const redPawn4 = new Piece(6,3,'pawn','red',{ x: 510, y: 0, w: 510, h: 503 })  
+    const redPawn5 = new Piece(8,3,'pawn','red',{ x: 510, y: 0, w: 510, h: 503 })  
+    const blackPawn1 = new Piece(0,6,'pawn','black',{ x: 1020, y: 0, w: 510, h: 503 })  
+    const blackPawn2 = new Piece(2,6,'pawn','black',{ x: 1020, y: 0, w: 510, h: 503 })  
+    const blackPawn3 = new Piece(4,6,'pawn','black',{ x: 1020, y: 0, w: 510, h: 503 })  
+    const blackPawn4 = new Piece(6,6,'pawn','black',{ x: 1020, y: 0, w: 510, h: 503 })  
+    const blackPawn5 = new Piece(8,6,'pawn','black',{ x: 1020, y: 0, w: 510, h: 503 })  
+    // 将棋子添加到棋盘层
+    ChessPiece.addPiece(redCar1,redCar2,redHorse1,redHorse2,blackHorse1,blackHorse2,blackCar1,blackCar2,redAdvisor1,redAdvisor2,blackAdvisor1,blackAdvisor2,redElephant1,redElephant2,blackElephant1,blackElephant2,
+    redKing,blackKing,redCannon1,redCannon2,blackCannon1,blackCannon2,
+    redPawn1,redPawn2,redPawn3,redPawn4,redPawn5,
+    blackPawn1,blackPawn2,blackPawn3,blackPawn4,blackPawn5)
+    // 初始化绘制
     ChessPiece.draw()
-    // 以下为创建事件层示例
+    // 创建事件层
     const ChessEvent = new EventLayer('chess-canvas-container',3)
-    // 测试事件发布与订阅是否正常工作
+
     const eventBus = Layer.eventBus
     // 以下事件订阅位于初始同步任务（第一个宏任务）中，必然先于事件发布
+    // 棋子渲染成功事件
     eventBus.on('BoardRendered',(arg)=>{
-        // console.log('棋盘渲染成功',arg)
+        console.log('棋盘渲染成功',arg)
     })
+    // 棋盘背景加载成功事件
     eventBus.on('BoardImgSucces',(arg)=>{
         // console.log(arg.msg)
     })
+    // 选择棋子事件
     eventBus.on('SelectPiece',(piece)=>{
         ChessPiece.selectPiece(piece)
         console.log('当前选中的棋子为:',PieceLayer.selectedPiece)
     })
+    // 欲移动棋子事件
     eventBus.on('WantMovePiece',(moveOption)=>{
-        // 这里应该做移动校验，但示例中省略
+        console.log('触发移动事件',moveOption)
+        // 移动前，实战场景应该做棋子移动校验，但示例简单
         const option = moveOption.moveTo
+        // 动画配置
         option.easing = MoveMode.easeInQuad
         option.duration = 500
+        // 执行动画
         ChessPiece.animate(animateFn,option)
     })
+    // 吃子事件
+    eventBus.on('EatPiece',e => {
+        console.log(e.ourPiece.side+'方'+e.ourPiece.type+'吃掉了'+e.enemyPiece.side+'方'+e.enemyPiece.type)
+        // 吃子伴随移动，这里构造移动事件需要的参数并触发移动事件
+        const moveOption = {
+            movePiece:e.ourPiece,
+            moveTo:{row:e.enemyPiece.x,col:e.enemyPiece.y}
+        }
+        console.log(e.enemyPiece)
+        eventBus.emit('WantMovePiece',moveOption)
+    })
+    // 棋子移动开始
     eventBus.on('AnimationStart',(animation)=>{
         // 开始移动后，将棋盘数组的原位置零
         ChessPiece.setPieceMap(null,animation.startX,animation.startY)
     })
+    // 棋子移动结束
     eventBus.on('AnimationEnd',(piece)=>{
         // 移动完成后，将棋盘数组的新位置赋值为棋子
         ChessPiece.setPieceMap(piece)

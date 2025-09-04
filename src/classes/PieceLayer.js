@@ -17,16 +17,15 @@ export default class PieceLayer extends Layer {
   static spritePromise = false; // 精灵图加载状态，通过promise反映
   // 当前棋子层实例的棋子状态
   static pieceMap = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]; // 使用字面量声明二维数组，相较使用数组构造函数性能略优
   constructor(container, LayerZindex, paintMode, spriteURL) {
     if (PieceLayer.isCreated) {
@@ -56,8 +55,8 @@ export default class PieceLayer extends Layer {
   }
   // 棋子层的绘制同样也只初始化触发一次，对调用时的pieceMap全量绘制
   draw() {
-    for (let i = 0; i <= BOARD_ROWS; i++) {
-      for (let j = 0; j <= BOARD_COLS; j++) {
+    for (let i = 0; i <= BOARD_COLS; i++) {
+      for (let j = 0; j <= BOARD_ROWS; j++) {
         if (!PieceLayer.pieceMap[i][j]) continue;
         this.drawOnePiece(PieceLayer.pieceMap[i][j]);
       }
@@ -120,20 +119,21 @@ export default class PieceLayer extends Layer {
       piece.spriteOption.y,
       piece.spriteOption.w,
       piece.spriteOption.h,
-      px,
-      py,
+      px - PIECE_SIZE / 2,
+      py - PIECE_SIZE / 2,
       PIECE_SIZE,
       PIECE_SIZE
     );
   }
   // 初始化添加棋子（作为框架内部方法）
-  addPiece(piece) {
-    if (!(piece instanceof Piece)) {
-      throw new Error("只能添加棋子实例");
-    } else {
+  addPiece(...pieces) {
+    for (const piece of pieces) {
+      if (!(piece instanceof Piece)) {
+        throw new Error("只能添加棋子实例");
+      }
       PieceLayer.pieceMap[piece.x][piece.y] = piece;
-      // 考虑触发事件
     }
+    // 考虑触发事件
   }
   // 改变棋盘数组状态，用于移动时的棋盘状态改变
   setPieceMap(piece, x, y) {

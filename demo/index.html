@@ -21,11 +21,11 @@
     // 依然需要设置背景色作为背景图加载失败的解决方案
     ChessBoard.draw(ChessBoard.getCanvasInstance(),ChessBoard.getCtx(),ChessBoard.backgroundColor)
     // 以下为棋子渲染示例
-    const ChessPiece = new PieceLayer('chess-canvas-container',2)
-    const redCar = new Piece(0,0,'car','red')
-    const blackCar = new Piece(4,1,'car','black')
+    const ChessPiece = new PieceLayer('chess-canvas-container',2,'sprite','/demo/static/sprite.webp')
+    const redCar = new Piece(4,1,'chariot','red',{x:490,y:510,w:510,h:510})
+    // const blackCar = new Piece(4,1,'chariot','black')
     ChessPiece.addPiece(redCar)
-    ChessPiece.addPiece(blackCar)
+    // ChessPiece.addPiece(blackCar)
     ChessPiece.draw()
     // 以下为创建事件层示例
     const ChessEvent = new EventLayer('chess-canvas-container',3)
